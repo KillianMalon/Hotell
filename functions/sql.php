@@ -5,7 +5,7 @@ function getCountry($dbh)
 {
     $query = $dbh->prepare( 'SELECT * FROM pays' );
     $query->execute();
-    return $query->fetchAll();
+    return $query->fetchAll(); 
 }
 
 //Fonction pour obtenir les informations d'une chambre et son prix avec l'id de la chambre
