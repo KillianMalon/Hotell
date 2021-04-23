@@ -5,7 +5,7 @@ require '../functions/functions.php';
 require_once '../functions/sql.php';
 require_once  'bdd.php';
 
-if (!empty($_SESSION['start']) && !empty($_SESSION['end']) &&  !empty($_SESSION['chambreId'])  &&  !empty($_SESSION['numberAdult'])  ) {
+if (!empty($_SESSION['start']) && !empty($_SESSION['end']) &&  !empty($_SESSION['chambreId'])  &&  !empty($_SESSION['numberAdult'])  && isset($_SESSION['numberChild'])) {
     $end = $_SESSION['end'];
     $start = $_SESSION['start'];
     $chambreId = $_SESSION['chambreId'];
@@ -32,10 +32,19 @@ if (!empty($_SESSION['start']) && !empty($_SESSION['end']) &&  !empty($_SESSION[
         $id = $_SESSION['id'];
         $dateStartFormatted = $startDateTime->format('Y-m-d H:i:s');
         $dateEndFormatted = $endDateTime->format('Y-m-d H:i:s');
-        addReservation($dbh, $chambreId, $dateStartFormatted, $dateEndFormatted, $numberAdult, $numberAdult, $id);
+        addReservation($dbh, $chambreId, $dateStartFormatted, $id);
         $startDateTime->add(new DateInterval('P1D'));
     }
-    header('Location:./vosReservations.php');
+    header('Location:./reservations.php');
+
+}elseif(isset($_POST['check']) && $_POST['check'] == 1  ){
+
+    $end = $_POST['dateend'];
+    $start = $_POST['datestart'];
+    $chambreId = $_POST['chambreId'];
+    $numberAdult = $_POST['numberAdult'];
+    $numberChild = $_POST['numberChild'];
+
 }else{
     unset($_SESSION['start']);
     unset($_SESSION['end']);
